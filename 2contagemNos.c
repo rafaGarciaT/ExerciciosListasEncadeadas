@@ -11,6 +11,5 @@ typedef struct Fila {
 
 int contarNos(Fila *fila) {
     int count;
-    while()
     return count;
 }
