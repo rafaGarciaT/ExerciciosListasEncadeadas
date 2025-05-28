@@ -23,14 +23,16 @@ void inserir_fim(Fila *fila, int valor) {
     }
 }
 
-int contarNos(Fila *fila) {
-    int cont = 0;
+int buscaElemento(Fila *fila, int valor) {
+    int resposta = 0;
     No *atual = fila->inicio;
     while (atual !=NULL) {
-        cont++;
+        if (atual->dado == valor){
+            resposta = 1;
+        }
         atual = atual->proximo;
     }
-    return cont;
+    return resposta;
 }
 
 int main() {
@@ -40,7 +42,7 @@ int main() {
     inserir_fim(&fila, 2);
     inserir_fim(&fila, 3);
 
-    printf("%d", contarNos(&fila));
+    printf("%d", buscaElemento(&fila, 3));
 
     return 0;
 }

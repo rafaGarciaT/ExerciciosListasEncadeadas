@@ -23,14 +23,30 @@ void inserir_fim(Fila *fila, int valor) {
     }
 }
 
-int contarNos(Fila *fila) {
-    int cont = 0;
+void removerValor(Fila *fila, int valor) {
     No *atual = fila->inicio;
+    No *anterior = NULL; 
+
     while (atual !=NULL) {
-        cont++;
+        if (atual->dado == valor){
+            if (anterior == NULL) {
+                fila->inicio = atual->proximo;
+                if (fila->inicio == NULL) {
+                    fila->fim = NULL;
+                }
+            } else{
+                anterior->proximo = atual->proximo;
+                if (atual== fila->fim) {
+                    fila->fim = anterior;
+                }
+            }
+            free(atual);
+            return;
+        }
+        anterior = atual;
         atual = atual->proximo;
     }
-    return cont;
+    return;
 }
 
 int main() {
@@ -40,7 +56,7 @@ int main() {
     inserir_fim(&fila, 2);
     inserir_fim(&fila, 3);
 
-    printf("%d", contarNos(&fila));
+    removerValor(&fila, 3);
 
     return 0;
 }

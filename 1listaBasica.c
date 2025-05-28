@@ -31,14 +31,17 @@ void inserir_inicio(Fila *fila, int valor) {
     if (fila->inicio == NULL) {
         fila->inicio = fila->fim = novoNo;
     } else {
-        fila->fim->proximo = novoNo;
-        fila->fim = novoNo;
+        novoNo->proximo = fila->inicio;
+        fila->inicio = novoNo;
+        if (fila->fim == NULL) {
+            fila->fim = novoNo;
+        }
     }
 }
 
 int main() {
-    No *lista = NULL;  
-    inserir_fim(&lista, 10);  
-    inserir_inicio(&lista, 5);  
+    Fila fila = {NULL, NULL};  
+    inserir_fim(&fila, 10);  
+    inserir_inicio(&fila, 5);  
     return 0;
 }
