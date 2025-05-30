@@ -23,16 +23,15 @@ void inserir_fim(Fila *fila, int valor) {
     }
 }
 
-int inverterLista(Fila *fila) {
-    int resposta = 0;
+Fila inverterLista(Fila *fila) {
+    Fila filaReversa = {NULL, NULL};
     No *atual = fila->inicio;
+
     while (atual !=NULL) {
-        if (atual->dado){
-            resposta = 1;
-        }
+        inserir_inicio(&filaReversa, atual->dado);
         atual = atual->proximo;
     }
-    return resposta;
+    return filaReversa;
 }
 
 int main() {
@@ -42,7 +41,7 @@ int main() {
     inserir_fim(&fila, 2);
     inserir_fim(&fila, 3);
 
-    printf("%d", buscaElemento(&fila, 3));
+    Fila filaReversa = inverterLista(&fila);
 
     return 0;
 }

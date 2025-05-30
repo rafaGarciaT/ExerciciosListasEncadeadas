@@ -23,17 +23,18 @@ void inserir_fim(Fila *fila, int valor) {
     }
 }
 
-int inverterLista(Fila *fila) {
-    int resposta = 0;
-    No *atual = fila->inicio;
-    while (atual !=NULL) {
-        if (atual->dado){
-            resposta = 1;
-        }
-        atual = atual->proximo;
+int encontrarMeio(Fila *fila) {
+    No *lento = fila->inicio;
+    No *rapido = fila->inicio;
+
+    while (rapido != NULL && rapido->proximo != NULL) {
+        lento = lento->proximo;
+        rapido = rapido->proximo->proximo;
     }
-    return resposta;
+
+    return lento;
 }
+
 
 int main() {
     Fila fila = {NULL, NULL};
@@ -41,8 +42,10 @@ int main() {
     inserir_fim(&fila, 1);
     inserir_fim(&fila, 2);
     inserir_fim(&fila, 3);
+    inserir_fim(&fila, 4);
+    inserir_fim(&fila, 5);
 
-    printf("%d", buscaElemento(&fila, 3));
+    No *meio = ecnontrarMeio(&fila);
 
     return 0;
 }
