@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 typedef struct No {
     int dado;
@@ -30,12 +31,31 @@ bool esta_vazia(Pilha *pilha){
 }
 
 int topo(Pilha *pilha) {
-    if (esta_vazia(pilha) == false) {
+    if (esta_vazia(pilha)) {
         printf("Pilha vazia.\n");
         return -1;
     } else {
         return pilha->topo->dado;
     }
+}
+
+bool verificarBalanceamento(const char* expr) {
+    Pilha pilha = {NULL};
+    for (int i = 0; expr[i] != '\0'; i++) {
+        char c = expr[i];
+        if (c == '(' || c == '[' || c == '{') {
+            push(&pilha, c);
+        } else if (c == ')' || c == ']' || c == '}') {
+            if (esta_vazia(&pilha)) return false;
+            char topoChar = pop(&pilha);
+            if ((c == ')' && topoChar != '(') ||
+                (c == ']' && topoChar != '[') ||
+                (c == '}' && topoChar != '{')) {
+                return false;
+            }
+        }
+    }
+    return esta_vazia(&pilha);
 }
 
 int main() {

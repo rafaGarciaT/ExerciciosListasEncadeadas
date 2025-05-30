@@ -39,6 +39,22 @@ int topo(Pilha *pilha) {
     }
 }
 
+bool verificarPalindromo(const char* str) {
+    Pilha pilha = {NULL};
+    int len = 0;
+    while (str[len] != '\0') {
+        push(&pilha, str[len]);
+        len++;
+    }
+    for (int i = 0; i < len; i++) {
+        if (str[i] != pop(&pilha)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
 int main() {
     Pilha pilha = {NULL};
 

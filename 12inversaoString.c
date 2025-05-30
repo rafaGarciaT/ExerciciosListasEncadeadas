@@ -2,44 +2,55 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+typedef struct No {
+    int dado;
+    struct No *proximo;
+} No;
+
 typedef struct {
-    int elementos[100];
-    int topo;
+    No *topo;
 } Pilha;
 
 void push(Pilha *pilha, int valor) {
-    if (pilha->topo == 100-1) {
-        printf("Pilha cheia\n");
-        return;
-    }
-
-    pilha->elementos[++pilha->topo] = valor;
+    No* novoNo = (No*) malloc(sizeof(No));
+    novoNo->dado = valor;
+    novoNo->proximo = pilha->topo;
+    pilha->topo = novoNo;
 }
 
 int pop(Pilha* pilha) {
-    if (pilha->topo == -1) {
-        printf("Pilha vazia\n");
-        return -1;
-    }
-
-    return pilha->elementos[pilha->topo--];
+    No* noRemover = pilha->topo;
+    int valor = noRemover->dado;
+    pilha->topo = noRemover->proximo;
+    free(noRemover);
+    return valor;
 }
 
 bool esta_vazia(Pilha *pilha){
-    return pilha->topo == -1;
+    return pilha->topo == NULL;
 }
 
 int topo(Pilha *pilha) {
     if (esta_vazia(pilha)) {
         printf("Pilha vazia.\n");
-        return -1; 
+        return -1;
     } else {
-        return pilha->elementos[pilha->topo];
+        return pilha->topo->dado;
+    }
+}
+
+void inversaoString(char* str) {
+    Pilha pilha = {NULL};
+    for (int i = 0; str[i] != '\0'; i++) {
+        push(&pilha, str[i]);
+    }
+    for (int i = 0; !esta_vazia(&pilha); i++) {
+        str[i] = pop(&pilha);
     }
 }
 
 int main() {
-    Pilha pilha = {.topo = -1};
+    Pilha pilha = {NULL};
 
     push(&pilha, 1);
     push(&pilha, 2);

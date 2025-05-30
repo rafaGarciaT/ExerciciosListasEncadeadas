@@ -39,6 +39,21 @@ int topo(Pilha *pilha) {
     }
 }
 
+void ordenar_pilha(Pilha* original) {
+    Pilha aux = {NULL};
+    while (!esta_vazia(original)) {
+        int temp = pop(original);
+        while (!esta_vazia(&aux) && topo(&aux) > temp) {
+            push(original, pop(&aux));
+        }
+        push(&aux, temp);
+    }
+    
+    while (!esta_vazia(&aux)) {
+        push(original, pop(&aux));
+    }
+}
+
 int main() {
     Pilha pilha = {NULL};
 
